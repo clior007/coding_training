@@ -1,35 +1,63 @@
 # Given an undirected graph, find a path between two nodes.
 # For example, given the following graph:
-# n=3, edges = [[0, 1], [1, 2], [2, 0]], source = 0, and destination = 2, the function should return true.
+# n=8, edges = [[0, 1], [0, 2], [1, 3], [1, 4], [2, 5], [2, 6], [6, 7]], source = 0, and destination = 7, the function should return true.
 
-def find_path(n, edges, source, destination):
+def find_path(n, edges, source, destination, is_bidirectional=True):
     graph = {}
+
+    for i in range(n):
+        graph[i] = []
 
     # Build the graph based on the edges
     for u, v in edges:
-        if u not in graph:
-            graph[u] = []
         graph[u].append(v)
         
-        if v not in graph:
-            graph[v] = []
-        graph[v].append(u)
+        if is_bidirectional:
+            graph[v].append(u)
     print("Graph: ", graph)
 
     # find a path from source to dest in the graph
     visited = [False] * n
-    return dfs(graph, source, destination, visited)
+    if bfs(graph, visited, source, destination):
+        print(f"BFS: There is a path between {source} and {destination}")
+    else:
+        print(f"BFS: There is NO path between {source} and {destination}")
 
-def dfs(graph, source, destination, visited):
-    print(f"Trying to find a path from source {source} to destination {destination}")
-    print("Visited: ", visited)
-    for u in graph[source]:
+    visited = [False] * n
+    if dfs(graph, visited, source, destination):
+        print(f"DFS: There is a path between {source} and {destination}")
+    else:
+        print(f"DFS: There is NO path between {source} and {destination}")
+
+def bfs(graph, visited, source, destination):
+    queue = []
+    queue.append(source)
+    visited[source] = True
+    
+    while queue:
+        print(f"B-FS: queue: {queue}, visited: {visited}")
+        u = queue.pop(0)
         if u == destination:
-            print(f"There is a path between {source} and {destination}")
             return True
-        if visited[u]:
-            return False
-        visited[u] = True
-        
-        if dfs(graph, u, destination, visited):
+        for v in graph[u]:
+            if not visited[v]:
+                visited[v] = True
+                queue.append(v)
+    return False
+
+def dfs(graph, visited, source, destination):
+    queue = []
+    queue.append(source)
+    visited[source] = True
+
+    while queue:
+        print(f"D-FS: queue: {queue}, visited: {visited}")
+        u = queue.pop()
+        if u == destination:
             return True
+        for v in graph[u]:
+            if not visited[v]:
+                visited[v] = True
+                queue.append(v)
+
+    return False
