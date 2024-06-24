@@ -16,38 +16,57 @@
 # Note:
 # The input prerequisites is a graph represented by a list of edges, not adjacency matrices. Read more about how a graph is represented.
 # You may assume that there are no duplicate edges in the input prerequisites.
+import collections
 
-def canFinishCourse(numCourses, prerequisits):
-    graph = {}
-    for i in range(numCourses):
-        graph[i] = []
+def canFinishCourses(numCourses, prerequisits):
+	graph = collections.defaultdict(list)
+	
+	for course, prereq in prerequisits:
+		graph[course].append(prereq)
+	
+	inProcess = []
+	queue = []
+	for node in range(numCourses):
+		if graph[node]:
+			inProcess.append(node)
+			queue.append(graph[node].pop())
+		
+		while queue:
+			node = queue.pop()
+			if node in inProcess:
+				print(f"Cycle found in {prerequisits}. Cannot finish courses.")
+				return False
+			
+			if graph[node]:
+				inProcess.append(node)
+				queue.append(graph[node].pop())
+	
+	print(f"Cycle NOT found in {prerequisits}. Can finish courses.")
+	return True
 
-    for u_course, v_prereq in prerequisits:
-        graph[u_course].append(v_prereq)
 
-    print(f"course graph: {graph}")
-    visited = [False] * numCourses
 
-    result = dfs(graph, visited)
-    print(f"Can finish courses: {result}")
-
-def dfs(graph, visited):
-    queue = []
-
-    for ver_key in graph:
-        if graph[ver_key] != []:
-            queue.append(ver_key)
-            break
-        
-    while queue:
-        u = queue.pop()
-        if visited[u] == 1:
-            continue
-        visited[u] = True
-
-        for v in graph[u]:
-            queue.append(v)
-
-    return all(visited)
-
-    
+#def canFinishCourses(numCourses, prerequisists):
+#	graph = collections.defaultdict(list)
+#
+#	for course, prereq in prerequisists:
+#		graph[course].append(prereq)
+#		
+#	for course in graph.keys():
+#		tracker = {}
+#		if dfsCyclic(course, graph, tracker):
+#			print("Cycle found. Cannot finish courses.")
+#			return False
+#		
+#	print("Cycle NOT found. Can finish courses.")
+#	return True
+#	
+#def dfsCyclic(course, graph, tracker):
+#	tracker[course] = True
+#	
+#	for n in graph[course]:
+#		if n in tracker or dfsCyclic(n, graph, tracker):
+#			return True
+#	
+#	tracker.pop(course)
+#	return False
