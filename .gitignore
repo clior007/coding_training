@@ -1,4 +1,3 @@
 venv
 launch.json
-graphs_find_judge.cpython*
-graphs_find_path.cpython*
+*.cpython*

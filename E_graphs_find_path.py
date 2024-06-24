@@ -2,7 +2,7 @@
 # For example, given the following graph:
 # n=8, edges = [[0, 1], [0, 2], [1, 3], [1, 4], [2, 5], [2, 6], [6, 7]], source = 0, and destination = 7, the function should return true.
 
-def find_path(n, edges, source, destination, is_bidirectional=True):
+def findPath(n, edges, source, destination, is_bidirectional=True):
     graph = {}
 
     for i in range(n):
