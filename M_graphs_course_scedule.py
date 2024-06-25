@@ -46,27 +46,27 @@ def canFinishCourses(numCourses, prerequisits):
 
 
 
-#def canFinishCourses(numCourses, prerequisists):
-#	graph = collections.defaultdict(list)
-#
-#	for course, prereq in prerequisists:
-#		graph[course].append(prereq)
-#		
-#	for course in graph.keys():
-#		tracker = {}
-#		if dfsCyclic(course, graph, tracker):
-#			print("Cycle found. Cannot finish courses.")
-#			return False
-#		
-#	print("Cycle NOT found. Can finish courses.")
-#	return True
-#	
-#def dfsCyclic(course, graph, tracker):
-#	tracker[course] = True
-#	
-#	for n in graph[course]:
-#		if n in tracker or dfsCyclic(n, graph, tracker):
-#			return True
-#	
-#	tracker.pop(course)
-#	return False
+def canFinishCoursesRecursive(numCourses, prerequisists):
+	graph = collections.defaultdict(list)
+
+	for course, prereq in prerequisists:
+		graph[course].append(prereq)
+		
+	for course in graph.keys():
+		tracker = {}
+		if dfsCyclic(course, graph, tracker):
+			print("Cycle found. Cannot finish courses.")
+			return False
+		
+	print("Cycle NOT found. Can finish courses.")
+	return True
+	
+def dfsCyclic(course, graph, tracker):
+	tracker[course] = True
+	
+	for n in graph[course]:
+		if n in tracker or dfsCyclic(n, graph, tracker):
+			return True
+	
+	tracker.pop(course)
+	return False
