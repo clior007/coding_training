@@ -1,7 +1,8 @@
 from E_graphs_find_judge import findJudge
 from E_graphs_find_path import findPath
 from E_graphs_find_center_star_graph import findCenter
-from M_graphs_course_scedule import canFinishCourses, canFinishCoursesRecursive
+from M_graphs_course_schedule import canFinishCourses, canFinishCoursesRecursive
+from M_graphs_course_schedule_ii import findCourseOrder, findCourseOrderRecursive
 
 def __main__():
     findJudge(2, [[1, 2]])
@@ -28,9 +29,22 @@ def __main__():
 
     print("\n\n")
 
-    canFinishCoursesRecursive(2, [[0, 1], [1, 0]])
-    canFinishCoursesRecursive(3, [[1, 0], [1, 2], [2, 1]])
-    canFinishCoursesRecursive(4, [[1, 0], [1, 2], [2, 0], [3, 2], [1, 3]])
-    canFinishCoursesRecursive(4, [[1, 0], [1, 2], [2, 0], [3, 2], [1, 3], [3, 1]])
+    ## not working
+    #canFinishCoursesRecursive(2, [[0, 1], [1, 0]])
+    #canFinishCoursesRecursive(3, [[1, 0], [1, 2], [2, 1]])
+    #canFinishCoursesRecursive(4, [[1, 0], [1, 2], [2, 0], [3, 2], [1, 3]])
+    #canFinishCoursesRecursive(4, [[1, 0], [1, 2], [2, 0], [3, 2], [1, 3], [3, 1]])
+    #print("\n\n")
+
+    findCourseOrder(2, [[1, 0]])
+    findCourseOrder(4, [[1,0],[2,0],[3,1],[3,2]])
+    findCourseOrder(4, [[1,0],[1,3], [2,0],[3,1],[3,2]])
+
+    print("\n\n")
+
+    findCourseOrderRecursive (2, [[1, 0]])
+    findCourseOrderRecursive(4, [[1,0],[2,0],[3,1],[3,2]])
+    findCourseOrderRecursive(4, [[1,0],[1,3], [2,0],[3,1],[3,2]])
+
 
 __main__()
