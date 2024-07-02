@@ -3,6 +3,7 @@ from E_graphs_find_path import findPath
 from E_graphs_find_center_star_graph import findCenter
 from M_graphs_course_schedule import canFinishCourses, canFinishCoursesRecursive
 from M_graphs_course_schedule_ii import findCourseOrder, findCourseOrderRecursive
+from delete_nodes_return_forest import Solution
 
 def __main__():
     findJudge(2, [[1, 2]])
@@ -45,6 +46,10 @@ def __main__():
     findCourseOrderRecursive (2, [[1, 0]])
     findCourseOrderRecursive(4, [[1,0],[2,0],[3,1],[3,2]])
     findCourseOrderRecursive(4, [[1,0],[1,3], [2,0],[3,1],[3,2]])
+
+    solution = Solution()
+    solution.delNodes(None, [1, 2])
+
 
 
 __main__()
